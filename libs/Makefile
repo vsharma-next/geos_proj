@@ -1,3 +1,4 @@
+GDAL_VERSION = 3.8.3
 SQLITE_VERSION = 3450100
 GEOS_VERSION = 3.12.1
 PROJ_VERSION = 9.3.1
@@ -9,9 +10,10 @@ PROJ_URL = "http://download.osgeo.org/proj/proj-$(PROJ_VERSION).tar.gz"
 GEOS_URL = "http://download.osgeo.org/geos/geos-$(GEOS_VERSION).tar.bz2"
 ZLIB_URL = "http://zlib.net/zlib-$(ZLIB_VERSION).tar.gz"
 TIFF_URL = "http://download.osgeo.org/libtiff/tiff-$(TIFF_VERSION).tar.gz"
+GDAL_URL = "https://github.com/OSGeo/gdal/releases/download/v$(GDAL_VERSION)/gdal-$(GDAL_VERSION).tar.gz"
 
 PWD = $(shell pwd)
-SRC_DIR = build/
+SRC_DIR = build/src
 SRC_DIR_FULL = $(PWD)/$(SRC_DIR)
 ROOT_DIR = $(PWD)/build/
 DIST_DIR = $(PWD)/build/
@@ -21,6 +23,38 @@ PREFIX_CMAKE = "-DCMAKE_INSTALL_PREFIX=$(ROOT_DIR)"
 # # EMCC_CFLAGS = -g4 -O0 -fexceptions -DRENAME_INTERNAL_LIBTIFF_SYMBOLS
 # EMCC_CFLAGS = -DRENAME_INTERNAL_LIBTIFF_SYMBOLS
 # EMCONFIGURE ?= CXXFLAGS="$(EMCC_CFLAGS)" CFLAGS="$(EMCC_CFLAGS)"
+
+########
+# GDAL #
+########
+GDAL_SRC = $(SRC_DIR)/gdal-$(GDAL_VERSION)
+
+gdal: $(ROOT_DIR)/lib/libgdal.a
+
+$(ROOT_DIR)/lib/libgdal.a: $(GDAL_SRC)/build/Makefile
+	cd $(GDAL_SRC)/build; \
+	$(EMMAKE) make -j9 VERBOSE=1 install;
+
+$(GDAL_SRC)/build/Makefile: $(ROOT_DIR)/lib/libproj.a $(GDAL_SRC)/CMakeLists.txt
+	cd $(GDAL_SRC); \
+	rm -rf $(ROOT_DIR)/lib/cmake; \
+	mkdir build; \
+	cd build; \
+	$(EMCMAKE) cmake .. $(PREFIX_CMAKE) -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCMAKE_RULE_MESSAGES:BOOL=OFF \
+	-DACCEPT_MISSING_SQLITE3_MUTEX_ALLOC:BOOL=ON \
+	-DGDAL_USE_EXTERNAL_LIBS:BOOL=OFF -DGDAL_USE_INTERNAL_LIBS:BOOL=ON \
+	-DBUILD_APPS=OFF \
+    -DCMAKE_PREFIX_PATH=$(ROOT_DIR) -DCMAKE_FIND_ROOT_PATH=$(ROOT_DIR) \
+    -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF -DOGR_BUILD_OPTIONAL_DRIVERS=OFF -DGDAL_ENABLE_PLUGINS:BOOL=OFF \
+    -DPROJ_INCLUDE_DIR=$(ROOT_DIR)/include -DPROJ_LIBRARY_RELEASE=$(ROOT_DIR)/lib/libproj.a
+
+$(GDAL_SRC)/CMakeLists.txt:
+	mkdir -p $(SRC_DIR); \
+	cd $(SRC_DIR); \
+	wget -nc $(GDAL_URL); \
+	tar -xf gdal-$(GDAL_VERSION).tar.gz;
+
 
 
 ########
