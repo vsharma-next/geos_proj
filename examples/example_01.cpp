@@ -29,12 +29,8 @@ int main()
 
     // Using GEOS to create a Point geometry
     const GeometryFactory *factory = GeometryFactory::getDefaultInstance();
-    Point *point = factory->createPoint(Coordinate(b.enu.e, b.enu.n));
-
+    std::unique_ptr<Point> point(factory->createPoint(Coordinate(b.enu.e, b.enu.n)));
     std::cout << "Point WKT: " << point->toText() << std::endl;
-
-    // Cleanup GEOS
-    delete point;
 
     return 0;
 }

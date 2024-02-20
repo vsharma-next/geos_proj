@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/examples",
+                "${workspaceFolder}/libs/build/include",
+                "${workspaceFolder}/libs/build/include/geos",
+                "${workspaceFolder}/libs/build/include/proj"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/examples",
+                    "${workspaceFolder}/libs/build/include",
+                    "${workspaceFolder}/libs/build/include/geos",
+                    "${workspaceFolder}/libs/build/include/proj"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}
