@@ -8,9 +8,10 @@ BUILD_DIR = build
 SOURCES = $(wildcard $(SRC_DIR)/example_*.cpp)
 TARGETS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.exe,$(SOURCES))
 
-all: $(TARGETS)
+all: $(BUILD_DIR) $(TARGETS)
 
-$(BUILD_DIR)/%.exe: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
+$(BUILD_DIR)/%.exe: $(SRC_DIR)/%.cpp
+	mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
 
 $(BUILD_DIR):
