@@ -1,8 +1,7 @@
 CXX = g++
 LIBS_DIR = libs/build
-PKG_CONFIG_PATH := $(LIBS_DIR)/lib/pkgconfig
-CXXFLAGS = -std=c++17 -Wall -I$(LIBS_DIR)/include $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags proj) $(shell $(LIBS_DIR)/bin/gdal-config --cflags)
-LDFLAGS = -L$(LIBS_DIR)/lib -static $(shell $(LIBS_DIR)/bin/geos-config --static-cclibs) $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --static --libs proj) $(shell $(LIBS_DIR)/bin/gdal-config --libs) 
+CXXFLAGS = -std=c++17 -Wall $(shell $(LIBS_DIR)/bin/geos-config --cflags) $(shell $(LIBS_DIR)/bin/gdal-config --cflags) 
+LDFLAGS = -static $(shell $(LIBS_DIR)/bin/geos-config --static-cclibs) $(shell $(LIBS_DIR)/bin/gdal-config --libs) -lsqlite3 -ldl
 
 SRC_DIR = examples
 BUILD_DIR = build
