@@ -47,7 +47,10 @@ $(GDAL_SRC)/build/Makefile: $(ROOT_DIR)/lib/libproj.a $(GDAL_SRC)/CMakeLists.txt
 	-DBUILD_APPS=OFF \
     -DCMAKE_PREFIX_PATH=$(ROOT_DIR) -DCMAKE_FIND_ROOT_PATH=$(ROOT_DIR) \
     -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF -DOGR_BUILD_OPTIONAL_DRIVERS=OFF -DGDAL_ENABLE_PLUGINS:BOOL=OFF \
-    -DPROJ_INCLUDE_DIR=$(ROOT_DIR)/include -DPROJ_LIBRARY_RELEASE=$(ROOT_DIR)/lib/libproj.a
+    -DPROJ_INCLUDE_DIR=$(ROOT_DIR)/include -DPROJ_LIBRARY_RELEASE=$(ROOT_DIR)/lib/libproj.a \
+	-DSQLite3_INCLUDE_DIR=$(ROOT_DIR)/include -DSQLite3_LIBRARY=$(ROOT_DIR)/lib/libsqlite3.a \
+	-DTIFF_INCLUDE_DIR=$(ROOT_DIR)/include -DTIFF_LIBRARY_RELEASE=$(ROOT_DIR)/lib/libtiff.a \
+	-DZLIB_INCLUDE_DIR=$(ROOT_DIR)/include -DZLIB_LIBRARY_RELEASE=$(ROOT_DIR)/lib/libz.a;
 
 $(GDAL_SRC)/CMakeLists.txt:
 	mkdir -p $(SRC_DIR); \
@@ -103,7 +106,6 @@ $(PROJ_SRC)/Makefile: $(ROOT_DIR)/lib/libtiff.a $(ROOT_DIR)/lib/libsqlite3.a $(P
     -DBUILD_TESTING=OFF \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_APPS=OFF;
-
 
 $(PROJ_SRC)/CMakeLists.txt:
 	mkdir -p $(SRC_DIR); \
