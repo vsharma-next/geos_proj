@@ -1,5 +1,12 @@
 #include "feanor.hpp"
 
+#include <iostream>
+#include <proj.h>
+#include <geos/geom/GeometryFactory.h>
+#include <geos/geom/Point.h>
+
+using namespace geos::geom;
+
 geos_wrapper::geos_wrapper()
 {
 
@@ -35,4 +42,14 @@ void geos_wrapper::print_data()
 {
     std::cout << original << std::endl;
     std::cout << transformed << std::endl;
+}
+
+int geos_wrapper::return_original()
+{
+    return original;
+}
+
+int geos_wrapper::return_transformed()
+{
+    return transformed;
 }
