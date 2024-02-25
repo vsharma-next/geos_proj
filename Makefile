@@ -1,5 +1,5 @@
 CXX = g++
-LIBS_DIR = libs/build
+LIBS_DIR = external_libs/build
 CXXFLAGS = -std=c++17 -Wall $(shell $(LIBS_DIR)/bin/geos-config --cflags) $(shell $(LIBS_DIR)/bin/gdal-config --cflags) 
 LDFLAGS = -static $(shell $(LIBS_DIR)/bin/geos-config --static-cclibs) $(shell $(LIBS_DIR)/bin/gdal-config --libs) -lsqlite3 -ldl
 
