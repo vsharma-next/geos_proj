@@ -3,22 +3,22 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/examples",
-                "${workspaceFolder}/libs/build/include",
-                "${workspaceFolder}/libs/build/include/geos",
-                "${workspaceFolder}/libs/build/include/proj"
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/external_libs/build/include",
+                "${workspaceFolder}/external_libs/build/include/geos",
+                "${workspaceFolder}/external_libs/build/include/proj"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
-            "cppStandard": "c++11",
+            "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64",
             "browse": {
                 "path": [
-                    "${workspaceFolder}/examples",
-                    "${workspaceFolder}/libs/build/include",
-                    "${workspaceFolder}/libs/build/include/geos",
-                    "${workspaceFolder}/libs/build/include/proj"
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/external_libs/build/include",
+                    "${workspaceFolder}/external_libs/build/include/geos",
+                    "${workspaceFolder}/external_libs/build/include/proj"
                 ],
                 "limitSymbolsToIncludedHeaders": true
             }
